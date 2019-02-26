@@ -2,8 +2,8 @@
 some utility functions for use with sonic-pi
 
 
-(ignore/comment out the top line if you wish as it is for importing my [Ruby array extensions](https://github.com/derekxkwan/dxk_ruby_ext))
-
+- (ignore/comment out the top line if you wish as it is for importing my [Ruby array extensions](https://github.com/derekxkwan/dxk_ruby_ext))
+- (also ignore/comment out the `load_synthdefs` line if you want as it is for loading my [custom synthdefs](https://github.com/derekxkwan/dxk-spisynths))
 
 ## FUNCTIONS
 - **beat_transport**: a psuedo-transport-type-thing for syncs and cues

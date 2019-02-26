@@ -1,16 +1,15 @@
-require "~/rubystuff/dxk_ruby_ext/dxk_array_ext.rb"
-
+require "~/rubystuff/dxk-ruby-ext/dxk-array_ext.rb"
+load_synthdefs "~/spistuff/dxk-spisynths/compiled"
 
 def beat_transport(enable = true, bpm = 120, beats_per_meas = 4, meas_per_phrase = 4, meas_per_half = 2)
-  cur_phrasebeats = meas_per_phrase * beats_per_meas
-  cur_halfbeats = meas_per_half * beats_per_meas
-  puts "start transport"
-  if enable
-    in_thread(name: :beat_transporter) do
-      loop do
-        use_bpm bpm
-        cur_phrasebeats.times do |i|
-          cue :beat
+  if enable == true
+    puts "start transport"
+    live_loop :phrase do
+      use_bpm bpm
+      cur_phrasebeats = meas_per_phrase * beats_per_meas
+      cur_halfbeats = meas_per_half * beats_per_meas
+      cur_phrasebeats.times do |i|
+        cue :beat
         if i % beats_per_meas == 0
           cue :meas
         end
@@ -18,12 +17,11 @@ def beat_transport(enable = true, bpm = 120, beats_per_meas = 4, meas_per_phrase
           cue :half
         end
         sleep 1
-        end
       end
     end
   else
     puts "stop transport"
-    in_thread(name: :beat_transporter) do
+    live_loop :phrase do
       stop
     end
   end
