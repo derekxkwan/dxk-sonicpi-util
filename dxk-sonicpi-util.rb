@@ -1,7 +1,7 @@
 require "~/rubystuff/dxk-ruby-ext/dxk-array_ext.rb"
 load_synthdefs "~/spistuff/dxk-spisynths/compiled"
 
-def beat_transport(enable = true, bpm = 120, beats_per_meas = 4, meas_per_phrase = 4, meas_per_half = 2)
+define :beat_transport do |enable = true, bpm = 120, beats_per_meas = 4, meas_per_phrase = 4, meas_per_half = 2|
   if enable == true
     puts "start transport"
     live_loop :phrase do
@@ -27,7 +27,7 @@ def beat_transport(enable = true, bpm = 120, beats_per_meas = 4, meas_per_phrase
   end
 end
 
-def ramp_var(to_ramp, to_val = 0, ramp_time = 1, grain = 0.125)
+define :ramp_var do |to_ramp, to_val = 0, ramp_time = 1, grain = 0.125|
   if to_ramp.is_a? Symbol
     thread_sym = (to_ramp.to_s + "_rampthread").to_sym
     cur_val = get[to_ramp]
@@ -51,7 +51,6 @@ def ramp_var(to_ramp, to_val = 0, ramp_time = 1, grain = 0.125)
     end
   end
       
-        
      
 
 
