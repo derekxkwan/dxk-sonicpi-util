@@ -13,6 +13,12 @@ define :beat_transport do |enable = true, bpm = 120, beats_per_meas = 4, meas_pe
         if i % beats_per_meas == 0
           cue :meas
         end
+        if (i + 1) % 2 == 0
+          cue :even
+        end
+        if i % 2 == 0
+          cue :odd
+        end
         if i % cur_halfbeats == 0
           cue :half
         end
