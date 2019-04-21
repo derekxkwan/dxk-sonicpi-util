@@ -1,4 +1,7 @@
+require "~/rubystuff/morse_gem/lib/morse.rb"
 require "~/rubystuff/dxk-ruby-ext/dxk-array_ext.rb"
+
+
 load_synthdefs "~/spistuff/dxk-spisynths/compiled"
 
 define :beat_transport do |enable = true, bpm = 120, beats_per_meas = 4, meas_per_phrase = 4, meas_per_half = 2|
@@ -57,9 +60,13 @@ define :ramp_var do |to_ramp, to_val = 0, ramp_time = 1, grain = 0.125|
     end
   end
       
-     
+ define :midicps do |midinote|
+   440 * 2 ** ((midinote-69)/12.0)
+ end
+
+define :cpsmidi do |cps|
+  12 * Math.log2(cps/440.0) + 60
+end
 
 
-
-
-
+set :sndfld, "/home/dxk/sounds/"
