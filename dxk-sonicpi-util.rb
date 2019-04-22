@@ -13,6 +13,8 @@ define :beat_transport do |enable = true, bpm = 120, beats_per_meas = 4, meas_pe
       cur_halfbeats = meas_per_half * beats_per_meas
       cur_phrasebeats.times do |i|
         cue :beat
+        set :tp_b, i % beats_per_meas
+        set :tp_m, (i/beats_per_meas).to_i
         if i % beats_per_meas == 0
           cue :meas
         end
