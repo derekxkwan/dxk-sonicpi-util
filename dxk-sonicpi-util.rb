@@ -4,7 +4,7 @@ require "~/rubystuff/dxk-ruby-ext/dxk-array_ext.rb"
 
 load_synthdefs "~/spistuff/dxk-spisynths/compiled"
 
-define :beat_transport do |enable = true, bpm = 120, beats_per_meas = 4, meas_per_phrase = -1, meas_per_sub = -1|
+define :beat_transport do |enable = true, bpm = 120, beats_per_meas = 4, meas_per_phrase = 4, meas_per_sub = -1, debug = true|
   if enable == true
     puts "start transport"
     cur_beats = beats_per_meas.kind_of?(Array) ? beats_per_meas : [beats_per_meas]
@@ -14,15 +14,17 @@ define :beat_transport do |enable = true, bpm = 120, beats_per_meas = 4, meas_pe
     end
     cur_sub = meas_per_sub.kind_of?(Array) ? meas_per_sub : [meas_per_sub]
     cur_subidx = cur_sub.inject([0]){|r, i| r << r.last.to_i + i}
-    live_loop :phrase do
+    live_loop :tp_master do
       use_bpm bpm
-      cur_beats.each_with_index do |num_beats, m|
+      cur_phrase.each_with_index do |num_beats, m|
+        set :tp_m, m
+        cue :phrase if m == 0
         cue :meas
         cue :half if cur_subidx.include?(m)
         num_beats.times do |i|
-          cue :beat
           set :tp_b, i
-          set :tp_m, m
+          cue :beat
+          puts [m,i] if debug == true
           cue :odd if (i + 1) % 2 == 0
           cue :even if (i % 2) == 0
           sleep 1
