@@ -14,9 +14,10 @@ define :beat_transport do |enable = true, bpm = 120, beats_per_meas = 4, meas_pe
     end
     cur_sub = meas_per_sub.kind_of?(Array) ? meas_per_sub : [meas_per_sub]
     cur_subidx = cur_sub.inject([0]){|r, i| r << r.last.to_i + i}
-    live_loop :tp_master do
+    live_loop :tp_loop do
       use_bpm bpm
       cur_phrase.each_with_index do |num_beats, m|
+        set :tp_mlen, num_beats 
         set :tp_m, m
         cue :phrase if m == 0
         cue :meas
