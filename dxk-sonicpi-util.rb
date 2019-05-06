@@ -1,6 +1,6 @@
 require "~/rubystuff/morse_gem/lib/morse.rb"
 require "~/rubystuff/dxk-ruby-ext/dxk-array_ext.rb"
-
+require "~/spistuff/dxk-sonicpi-util/dxk-sonicpi-methods.rb"
 
 load_synthdefs "~/spistuff/dxk-spisynths/compiled"
 
@@ -72,5 +72,14 @@ define :cpsmidi do |cps|
   12 * Math.log2(cps/440.0) + 60
 end
 
-
+define :dur_subdiv do |ipt_arr, maindiv = 0.5, subdiv = 0.25|
+  cur_arr = ipt_arr.flatten
+  cur_arr.map do |x|
+    x2 =  [0, x- maindiv].max
+    x2 > 0 ? ([maindiv] + [subdiv] * (x2/subdiv.abs).floor) : [x]
+    end
+end
+  
 set :sndfld, "/home/dxk/sounds/"
+set :oneshot, "/home/dxk/sounds/oneshot/"
+
