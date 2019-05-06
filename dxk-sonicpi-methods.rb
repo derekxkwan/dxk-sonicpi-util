@@ -13,10 +13,16 @@ def tp_loop(loopname)
   end
   end
 
-
-
 def tp_thread
   in_thread do
+    use_bpm get[:bpm]
+    yield
+    end
+  end
+
+def tp_thread(syncer)
+  in_thread do
+    sync syncer
     use_bpm get[:bpm]
     yield
     end
