@@ -20,7 +20,7 @@ def tp_thread
     end
   end
 
-def tp_thread(syncer)
+def tp_syncthread(syncer)
   in_thread do
     sync syncer
     use_bpm get[:bpm]
